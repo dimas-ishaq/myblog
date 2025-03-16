@@ -13,6 +13,7 @@ export const userSignInSchema = Yup.object({
 })
 
 export const categorySchema = Yup.object({
+  categoryId:Yup.string(),
   name: Yup.string().min(3,'Name must be at least 3 characters').required('Name is required'),
   description: Yup.string().min(10,'Description must be at least 10 characters')
   
@@ -20,7 +21,14 @@ export const categorySchema = Yup.object({
 export const tagSchema = Yup.object({
   name: Yup.string().min(3,'Name must be at least 3 characters').required('Name is required'),
   description: Yup.string().min(10,'Description must be at least 10 characters')
-  
+})
+
+export const postSchema = Yup.object({
+  title:Yup.string().min(3, "Name must be at least 3 characters").required("Title is required"),
+  content:Yup.string().required("Content is required"),
+  category:Yup.string().required("Category is required"),
+  tag:Yup.string().required("Tag is required"),
+  status: Yup.string().required("Status is required")
 })
 
 

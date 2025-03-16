@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import { signout } from "@/app/actions/auth";
 import { usePathname } from "next/navigation";
+import PostDropdown from "./PostDropdown";
 export default function Sidebar() {
   const dashboardLinks = [
     { href: "/dashboard", text: "Dashboard", icon: <LayoutDashboard /> },
@@ -17,7 +18,7 @@ export default function Sidebar() {
       text: "Start Writing",
       icon: <Pencil />,
     },
-    { href: "/dashboard/my", text: "MyBlog", icon: <BookOpenText /> },
+    { href: "/dashboard/myblog", text: "MyBlog", icon: <BookOpenText /> },
   ];
   const activeLink = usePathname();
   return (
@@ -42,6 +43,9 @@ export default function Sidebar() {
                 </Link>
               </li>
             ))}
+            <li >
+             <PostDropdown />
+            </li>
             <li className="font-normal text-sm items-center text-white rounded hover:bg-green-300 w-full hover:text-gray-800">
               <button
                 onClick={signout}

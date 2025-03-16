@@ -22,7 +22,7 @@ export default async function Profile() {
           width={42}
           height={42}
         />
-        <p className="text-sm font-light text-white">Hi, Dimas</p>
+        <p className="text-sm font-light text-white">Hi, {user?.name}</p>
       </div>
     </div>
   );

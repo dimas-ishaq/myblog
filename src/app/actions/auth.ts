@@ -20,7 +20,7 @@ export async function signup(state: FormState, formData: FormData) {
     password: formData.get("password")?.toString() ?? "",
   };
   try {
-    const validation = await userSignUpSchema.validate(data, {
+     await userSignUpSchema.validate(data, {
       abortEarly: false,
     });
   } catch (err) {
@@ -54,7 +54,7 @@ export async function signup(state: FormState, formData: FormData) {
     };
   }
 
-  const addUser = await prisma.user.create({
+  await prisma.user.create({
     data: {
       name,
       email,
@@ -71,7 +71,7 @@ export async function signin(state: FormState, formData: FormData) {
     password: formData.get("password")?.toString() ?? "",
   };
   try {
-    const validation = await userSignInSchema.validate(data, {
+     await userSignInSchema.validate(data, {
       abortEarly: false,
     });
   } catch (err) {

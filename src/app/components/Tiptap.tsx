@@ -2,13 +2,14 @@
 
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-
+import { useState } from "react";
 
 export const Tiptap = () => {
+  const [value, setValue] = useState("");
    const editor = useEditor({
     extensions: [StarterKit],
     onUpdate: ({ editor }) => {
-      localStorage.setItem("content", editor.getHTML())
+     setValue(editor.getHTML())
     },
     editorProps: {
       attributes: {
@@ -27,7 +28,6 @@ export const Tiptap = () => {
 
   return (
     <div className="flex flex-col relative z-0">
-      <span>{editor.getHTML()}</span>
       <div className="flex flex-wrap p-2 text-dark gap-x-1 text-base sticky top-5 z-[1] bg-green-300 rounded mb-2">
         <button
           onClick={() =>
@@ -174,6 +174,7 @@ export const Tiptap = () => {
           <em>Italic</em>
         </button>
       </div>
+      <input type="text" name="content" hidden id="content" defaultValue={value}/>
       <EditorContent editor={editor}  />
     </div>
   );

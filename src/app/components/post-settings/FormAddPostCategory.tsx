@@ -1,14 +1,32 @@
-'use client'
+"use client";
 
 import { createPostCategory } from "@/app/actions/category";
 import { useActionState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function FormAddPostCategory() {
-  const[state, actions, pending] = useActionState(createPostCategory, undefined)
-
+  const [state, actions, pending] = useActionState(
+    createPostCategory,
+    undefined
+  );
+  const [isSuccess, setSuccess] = useState(false);
+  const router = useRouter();
+  useEffect(() => {
+    if (state?.success) {
+      setSuccess(true);
+      router.refresh();
+    }
+    setTimeout(() => setSuccess(false), 3000);
+  }, [state?.success, router]);
   return (
     <div className="flex flex-col w-full">
-      <form action={actions} className="space-y-2">
+      {isSuccess && (
+        <p className="text-green-500 text-center">
+          Category added successfully
+        </p>
+      )}
+      <form action={actions} className="space-y-2 text-sm">
         <h3 className="text-center">Post Category</h3>
         <div className="flex flex-col gap-y-2">
           <label htmlFor="category">Category</label>

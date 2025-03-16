@@ -1,19 +1,41 @@
 "use client";
+import { useRouter } from "next/navigation";
+import { useState, useEffect, useActionState } from "react";
+import { updatePostCategory } from "@/app/actions/category";
 
-import { useActionState } from "react";
-import { createPostTag } from "@/app/actions/tag";
-export default function FormAddPostTag() {
-  const [state, actions, pending] = useActionState(createPostTag, undefined);
+export default function FormUpdatePostCategory({
+  categoryId,
+}: {
+  categoryId: string;
+}) {
+  const [state, actions, pending] = useActionState(
+    updatePostCategory,
+    undefined
+  );
+  const [isSuccess, setSuccess] = useState(false);
+  const router = useRouter();
+  useEffect(() => {
+    if (state?.success) {
+      setSuccess(true);
+      router.refresh();
+    }
+    setTimeout(() => setSuccess(false), 3000);
+  }, [state?.success]);
   return (
     <div className="flex flex-col w-full">
-      <form action={actions} className="space-y-2">
-        <h3 className="text-center">Post Tag</h3>
+      {isSuccess && (
+        <p className="text-green-500 text-center">
+          Category updated successfully
+        </p>
+      )}
+      <form action={actions} className="space-y-2 text-sm">
+        <h3 className="text-center">Post Category</h3>
         <div className="flex flex-col gap-y-2">
-          <label htmlFor="tag">Tag</label>
+          <label htmlFor="category">Category</label>
           <input
             type="text"
-            name="tag"
-            id="tag"
+            name="category"
+            id="category"
             className="px-2.5 py-2 border-2 rounded-md focus:outline-green-500 focus:outline-1"
           />
         </div>
@@ -32,12 +54,13 @@ export default function FormAddPostTag() {
         {state?.errors?.description && (
           <p className="text-red-500">{state.errors.description}</p>
         )}
+        <input type="text" name="categoryId" id="categoryId" defaultValue={categoryId} hidden />
         <button
           type="submit"
           disabled={pending}
           className="font-semibold bg-green-500 px-2.5 py-2.5 rounded-md text-white hover:bg-green-600 w-6/12 mt-2"
         >
-          Add Tag
+          Edit Category
         </button>
       </form>
     </div>
