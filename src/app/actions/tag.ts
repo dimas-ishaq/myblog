@@ -109,7 +109,7 @@ export async function updatePostTag(state: FormState, formData: FormData) {
 }
 
 
-export async function deletePostTag(state: FormState, formData: FormData){
+export async function deletePostTag(state: { errors?: { message: string }; success?: string } | undefined, formData: FormData){
   const tagId = formData.get("tagId")?.toString() ?? "";
   try {
     const isTagExist = await prisma.tag.findUnique({

@@ -1,24 +1,29 @@
-import Link from "next/link"; 
-type Category ={
-  id?:string,
-  name?:string
-}
-type Tag ={
-  id?:string,
-  name?:string
-}
+import Link from "next/link";
+type Category = {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  description: string;
+};
+type Tag = {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  description: string;
+};
 type postsProps = {
-  id:string,
-  title:string,
-  name:string, 
-  slug:string,
-  content:string,
-  categories: Category[],
-  tags: Tag[],
-  status:string,
-  createdAt:Date,
-  updatedAt:Date,
-}
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  categories?: Category[];
+  tags?: Tag[];
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
 export default function PostCard({ posts }: { posts: postsProps[] }) {
   return (
     <div className="w-full grid grid-cols-4 gap-3 mt-4 px-4 h-full">
